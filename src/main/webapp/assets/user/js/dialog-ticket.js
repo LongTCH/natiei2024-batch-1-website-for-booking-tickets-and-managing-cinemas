@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
         movieId = button.attr('data-movie-id');
         $('#modalMovieId').val(movieId);
         $.ajax({
-            url: 'tickets/modal',
+            url: '/tickets/modal',
             type: 'GET',
             data: { movieId: movieId },
             success: function(response) {
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log($('#modalMovieId').val());
         $.ajax({
             type: 'GET',
-            url: 'tickets/modal/showtime',
+            url: '/tickets/modal/showtime',
             data: {
                 movieId: movieId,
                 date: dateObj,

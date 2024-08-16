@@ -50,4 +50,10 @@ public class ShowtimesServiceImpl implements ShowtimesService {
                 .collect(Collectors.groupingBy(Showtime::getScreen));
     }
 
+    @Override
+    public Showtime findById(int showtimeId) {
+        return showtimesRepository.findById(showtimeId).orElse(null);
+    }
+
+
 }

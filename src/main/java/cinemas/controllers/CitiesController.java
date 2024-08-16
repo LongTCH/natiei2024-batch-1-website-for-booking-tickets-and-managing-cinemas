@@ -17,7 +17,6 @@ public class CitiesController {
     @Autowired
     private CitiesService citiesService;
 
-
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<List<CityDto>> getCities() {

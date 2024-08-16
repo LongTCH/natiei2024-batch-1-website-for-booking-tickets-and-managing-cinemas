@@ -70,8 +70,8 @@ ul {
 }
 
 .ad .clearfix {
-    position: relative;
-    display: flex;
+    display: grid;
+    gap: 3px; /* Add spacing between the seat labels */
     justify-content: center;
 }
 .ad .clearfix-double {
@@ -104,6 +104,7 @@ ul {
      cursor: pointer;
      padding: 3px;
  }
+
 input[type="checkbox"], input[type="radio"] {
     box-sizing: border-box;
     padding: 0;
@@ -134,4 +135,10 @@ section .container {
     background-color: #FC624D;
     color: #fff;
     border-color: #FC624D;
+}
+table tr td p{
+    margin: 0 5px 0 5px;
+}
+.note-color{
+    display: inline-block;
 }

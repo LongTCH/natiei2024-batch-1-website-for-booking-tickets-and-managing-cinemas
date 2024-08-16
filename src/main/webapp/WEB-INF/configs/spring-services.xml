@@ -67,4 +67,21 @@
       </bean>
     </property>
   </bean>
+  <bean id="showtimeSeatsService" parent="baseTransactionProxy">
+    <property name="target">
+      <bean class="cinemas.services.impl.ShowtimeSeatsServiceImpl">
+        <constructor-arg ref="showtimeSeatsRepository" />
+        <constructor-arg ref="showtimesRepository" />
+        <constructor-arg ref="usersRepository"/>
+        <constructor-arg ref="seatsRepository" />
+      </bean>
+    </property>
+  </bean>
+  <bean id="seatsService" parent="baseTransactionProxy">
+    <property name="target">
+      <bean class="cinemas.services.impl.SeatsServiceImpl">
+        <constructor-arg ref="seatsRepository" />
+      </bean>
+    </property>
+  </bean>
 </beans>

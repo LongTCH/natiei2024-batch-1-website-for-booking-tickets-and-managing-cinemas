@@ -25,6 +25,11 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
+    public User findById(int id) {
+        return usersRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public User save(User user) {
         if (usersRepository != null) {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));

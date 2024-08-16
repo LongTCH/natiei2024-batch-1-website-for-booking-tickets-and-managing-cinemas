@@ -42,7 +42,7 @@
               </div>
               <ul class="showtime">
                 <li class="item" th:each="timeSlot : ${entry.value}">
-                  <a href="#">
+                  <a th:href="@{/select-seats(showtimeId=${timeSlot.id})}">
                     <span th:text="${timeSlot.startTime.toLocalTime()}">19:30</span>
                   </a>
                 </li>

@@ -14,6 +14,7 @@
             color: #333;
         }
     </style>
+    <script th:src="@{/assets/user/js/dialog-ticket.js}"></script>
 </head>
 <body>
 <section layout:fragment="body">
@@ -81,7 +82,7 @@
                             <a class="btn btn-trailer" th:href="@{${movie.trailer}}" target="_blank">Trailer</a>
                         </div>
                         <div class="btn-buy-cover">
-                            <button class="btn btn-buy">Mua vé</button>
+                            <button class="btn btn-buy" data-toggle="modal" data-target="#exampleModalLong" th:attr="data-movie-id=${movie.id}">Mua vé</button>
                         </div>
                     </div>
                     <div class="product-collateral">
@@ -93,6 +94,7 @@
             </div>
         </div>
     </div>
+    <div th:insert="~{components/dialog-ticket}"> </div>
 </section>
 </body>
 </html>

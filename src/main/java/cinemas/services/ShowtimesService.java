@@ -1,5 +1,6 @@
 package cinemas.services;
 
+import cinemas.models.Movie;
 import cinemas.models.Screen;
 import cinemas.models.Showtime;
 
@@ -12,4 +13,5 @@ public interface ShowtimesService {
     List<Showtime> getShowtimeByDateAndCity(int movieId, int cityId, LocalDate date);
     List<Map<String, String>> generateFormattedDates(LocalDate startDate, int daysRange);
     Map<Screen, List<Showtime>> getGroupedShowtimes(int movieId, int cityId, LocalDate startDate);
+    Showtime findById(int showtimeId);
 }

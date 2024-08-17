@@ -46,27 +46,28 @@
                             </li>
                         </ol>
                     </div>
-                    <div class="main-content">
+                    <form class="main-content" action="@{/ticket-bookings/payment}" method="post" th:object="${foodSelectionForm}">
+                        <button type="submit" >Submit</button>
                         <ul class="progress">
                             <li class="booking-step">
                                 <label class="h1">Bắp Nước</label>
                                 <ol class="products-list">
-                                    <li th:each="food : ${foods}" class="item">
-                                        <img th:src="${food.photoUrl}" th:alt="${food.name}" class="product-image">
+                                    <li th:each="foodSelection, itemStat : *{foodSelections}" class="item">
+                                        <img th:src="${foodSelection.food.photoUrl}" th:alt="${foodSelection.food.name}" class="product-image">
                                         <div class="product-shop">
-                                            <div class="product-primary" th:text="${food.name}"></div>
-                                            <div class="desc std" th:text="${food.description}"></div>
+                                            <div class="product-primary" th:text="${foodSelection.food.name}"></div>
+                                            <div class="desc std" th:text="${foodSelection.food.description}"></div>
                                             <div class="desc">
                                                 <div class="price-box">
                                                     <span class="label">Giá:</span>
-                                                    <span class="price" th:text="${#numbers.formatDecimal(food.price, 1, 'POINT', 2, 'COMMA')} + ' ₫'"></span>
+                                                    <span class="price" th:text="${#numbers.formatDecimal(foodSelection.food.price, 1, 'POINT', 2, 'COMMA')} + ' ₫'"></span>
                                                 </div>
                                                 <div class="action">
-                                                    <div th:title="${food.name}" class="button" onclick="selectedcons(this)"
-                                                         th:attr="price=${food.price}">-</div>
-                                                    <div class="input-text qty button">0</div>
-                                                    <div th:title="${food.name}" class="button" onclick="selectedcons(this)"
-                                                         th:attr="price=${food.price}">+</div>
+                                                    <div th:title="${foodSelection.food.name}" class="button" onclick="selectedcons(this)"
+                                                         th:attr="price=${foodSelection.food.price}">-</div>
+                                                    <input type="number" class="input-text qty button" th:field="*{foodSelections[__${itemStat.index}__].count}"></input>
+                                                    <div th:title="${foodSelection.food.name}" class="button" onclick="selectedcons(this)"
+                                                         th:attr="price=${foodSelection.food.price}">+</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -74,7 +75,7 @@
                                 </ol>
                             </li>
                         </ul>
-                    </div>
+                    </form>
                     <div class="bottom-content">
                         <div class="format-bg-top"></div>
                         <div class="minicart-wrapper">

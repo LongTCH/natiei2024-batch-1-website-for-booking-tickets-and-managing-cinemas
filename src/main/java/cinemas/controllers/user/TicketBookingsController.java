@@ -1,5 +1,7 @@
 package cinemas.controllers.user;
 
+import cinemas.dtos.FoodSelectionDto;
+import cinemas.dtos.FoodSelectionFormDto;
 import cinemas.models.Food;
 import cinemas.models.Showtime;
 import cinemas.models.ShowtimeSeat;
@@ -26,6 +28,7 @@ public class TicketBookingsController {
     private ShowtimeSeatsService showtimeSeatsService;
     @Autowired
     private FoodsService foodsService;
+
     @GetMapping("/showtimes")
     public String show(@RequestParam("showtimeId") Integer showtimeId, Model model) {
         Showtime showtime = showtimesService.findById(showtimeId);
@@ -36,18 +39,36 @@ public class TicketBookingsController {
         model.addAttribute("screenRows", seatGrid.length); // Number of rows
         return "user/showtimes/show";
     }
+
     @PostMapping("/showtimes")
-    public String showFoods(@RequestParam(value = "seatIds", required = false)Integer[] selectedId, @RequestParam("showtimeId") Integer showtimeId, HttpSession session, Model model) {
+    public String showFoods(@RequestParam(value = "seatIds", required = false) Integer[] selectedId, @RequestParam("showtimeId") Integer showtimeId, HttpSession session, Model model) {
         List<Food> foods = foodsService.getAllFoods();
+        var foodSlectionForm = new FoodSelectionFormDto();
+        foods.forEach(food -> {
+            var foodSelection = new FoodSelectionDto();
+            foodSelection.setFood(food);
+            foodSelection.setCount(0);
+            foodSlectionForm.addFoodSelection(foodSelection);
+        });
         Showtime showtime = showtimesService.findById(showtimeId);
         User user = (User) session.getAttribute("user");
         int userId = user.getId();
         List<ShowtimeSeat> showtimeSeatList = showtimeSeatsService.getShowtimeseats(showtimeId, userId, selectedId);
         Map<String, Integer> seatPrices = showtimeSeatsService.getSeatPrices(showtimeSeatList);
-        model.addAttribute("foods", foods);
+        model.addAttribute("foodSelectionForm", foodSlectionForm);
         model.addAttribute("showtime", showtime);
         model.addAttribute("seatPrices", seatPrices);
         model.addAttribute("showtimeSeats", showtimeSeatList);
         return "user/foods/index";
+    }
+
+    @PostMapping("showtimes/{id}/payments")
+    public String showPayments(@RequestParam("id") Integer showtimeId, @ModelAttribute FoodSelectionFormDto foodSelectionFormDto, HttpSession session, Model model) {
+        foodSelectionFormDto.getFoodSelections().forEach(foodSelectionDto -> {
+            if (foodSelectionDto.getCount() > 0) {
+                System.out.println(foodSelectionDto.getFood().getName() + " " + foodSelectionDto.getCount());
+            }
+        });
+        return "user/payments/index";
     }
 }

@@ -51,7 +51,7 @@
                                                                        th:data-selected="${seat.selected}"
                                                                        th:for = "'seat' + ${seat.id}">
                                                                 </label>
-                                                                <input type="checkbox" name="seatIds" th:id="'seat' + ${seat.id}" th:value="${seat.id}">
+                                                                <input class="d-none" type="checkbox" name="seatIds" th:id="'seat' + ${seat.id}" th:value="${seat.id}">
                                                             </th:block>
                                                         </th:block>
                                                     </th:block>

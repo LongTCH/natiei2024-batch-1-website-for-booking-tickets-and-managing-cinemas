@@ -14,7 +14,7 @@ public class Food extends SoftDeletableEntity {
     @Column(name = "photo_url")
     private String photoUrl;
     private Integer price;
-
+    private String description;
     // Getters and Setters
     public Integer getId() {
         return id;
@@ -46,5 +46,13 @@ public class Food extends SoftDeletableEntity {
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

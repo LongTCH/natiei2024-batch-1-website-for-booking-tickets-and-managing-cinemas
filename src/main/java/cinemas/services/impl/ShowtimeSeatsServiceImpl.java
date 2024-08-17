@@ -7,15 +7,9 @@ import cinemas.repositories.SeatsRepository;
 import cinemas.repositories.ShowtimeSeatsRepository;
 import cinemas.repositories.ShowtimesRepository;
 import cinemas.repositories.UsersRepository;
-import cinemas.services.SeatsService;
 import cinemas.services.ShowtimeSeatsService;
-import cinemas.services.ShowtimesService;
-import cinemas.services.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class ShowtimeSeatsServiceImpl implements ShowtimeSeatsService {
     private ShowtimeSeatsRepository showtimeSeatsRepository;
@@ -78,5 +72,27 @@ public class ShowtimeSeatsServiceImpl implements ShowtimeSeatsService {
             showtimeSeats.add(showtimeSeat);
         }
         return showtimeSeats;
+    }
+
+    @Override
+    public Map<String, Integer> getSeatPrices(List<ShowtimeSeat> showtimeSeatList) {
+        Map<String, Integer> seatPrices = new HashMap<>();
+        int totalPrice = 0;
+
+        for (ShowtimeSeat showtimeSeat : showtimeSeatList) {
+            int price = 0;
+            Seat seat = showtimeSeat.getSeat();
+            Showtime showtime = showtimeSeat.getShowtime();
+            String seatName = seat.getName();
+            if(seat.getType() == SeatTypeEnum.STANDARD){
+                price = showtime.getPriceStandard();
+            }else{
+                price = showtime.getPriceVip();
+            }
+            seatPrices.put(seatName, price);
+            totalPrice += price;
+        }
+        seatPrices.put("Total", totalPrice);
+        return seatPrices;
     }
 }

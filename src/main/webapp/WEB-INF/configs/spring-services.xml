@@ -84,4 +84,11 @@
       </bean>
     </property>
   </bean>
+  <bean id="foodsService" parent="baseTransactionProxy">
+    <property name="target">
+      <bean class="cinemas.services.impl.FoodsServiceImpl">
+        <constructor-arg ref="foodsRepository" />
+      </bean>
+    </property>
+  </bean>
 </beans>
